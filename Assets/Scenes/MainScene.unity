@@ -288,14 +288,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1de3992e1ffc6c4cbba4e1890edf86b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetingRange: 10
+  targetingRange: 6
   enemyLayer:
     serializedVersion: 2
     m_Bits: 64
   targetingMode: 0
-  fireRate: 2
-  damage: 10
-  projectileSpeed: 15
+  fireRate: 1
+  damage: 2
+  projectileSpeed: 10
   projectilePrefab: {fileID: 177272041936047633, guid: 9700d411c3fc82049aef98ed320667f3, type: 3}
   firePoint: {fileID: 1332751298}
   turretPivot: {fileID: 1282209466}
@@ -397,8 +397,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1282209466}
   m_Father: {fileID: 0}
@@ -730,13 +730,13 @@ MonoBehaviour:
   baseSpawnInterval: 2
   minSpawnInterval: 0.3
   baseEnemiesPerWave: 5
-  spawnDistanceFromCenter: 12
-  healthScalePerWave: 1.2
+  spawnDistanceFromCenter: 6
+  healthScalePerWave: 1.05
   speedScalePerWave: 1.05
   goldScalePerWave: 1.1
-  extraEnemiesPerWave: 2
-  baseEnemyHealth: 50
-  baseEnemySpeed: 2
+  extraEnemiesPerWave: 1
+  baseEnemyHealth: 5
+  baseEnemySpeed: 1
   baseGoldReward: 10
 --- !u!4 &1226658416
 Transform:
