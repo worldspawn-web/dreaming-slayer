@@ -162,7 +162,7 @@ MonoBehaviour:
   fireRate: 2
   damage: 10
   projectileSpeed: 15
-  projectilePrefab: {fileID: 0}
+  projectilePrefab: {fileID: 177272041936047633, guid: 9700d411c3fc82049aef98ed320667f3, type: 3}
   firePoint: {fileID: 1332751298}
   turretPivot: {fileID: 1282209466}
   rotationSpeed: 10
