@@ -52,6 +52,19 @@ namespace DreamingSlayer.Defender
             Instance = this;
         }
 
+        private void Start()
+        {
+            // Validate setup
+            if (enemyLayer == 0)
+            {
+                Debug.LogWarning("Defender: Enemy Layer is not set! Go to Defender Inspector and set 'Enemy Layer' to the 'Enemy' layer.");
+            }
+            if (projectilePrefab == null)
+            {
+                Debug.LogError("Defender: Projectile Prefab is not assigned! Drag a projectile prefab into the Inspector.");
+            }
+        }
+
         private void Update()
         {
             FindTarget();
