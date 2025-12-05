@@ -32,14 +32,27 @@ namespace DreamingSlayer.Enemies
         private int enemiesLeftToSpawn;
         private Coroutine spawnCoroutine;
 
-        private void Start()
+        private void Awake()
         {
             mainCamera = Camera.main;
+        }
 
+        private void Start()
+        {
             // Subscribe to wave events
             if (GameManager.Instance != null)
             {
                 GameManager.Instance.OnWaveStarted += OnWaveStarted;
+                
+                // If a wave is already running (we missed the event), start spawning now
+                if (GameManager.Instance.CurrentWave >= 1)
+                {
+                    OnWaveStarted(GameManager.Instance.CurrentWave);
+                }
+            }
+            else
+            {
+                Debug.LogError("EnemySpawner: GameManager not found! Make sure GameManager exists in the scene.");
             }
         }
 
@@ -97,7 +110,11 @@ namespace DreamingSlayer.Enemies
 
         private void SpawnEnemy(float health, float speed, int gold)
         {
-            if (enemyPrefabs == null || enemyPrefabs.Length == 0) return;
+            if (enemyPrefabs == null || enemyPrefabs.Length == 0)
+            {
+                Debug.LogError("EnemySpawner: No enemy prefabs assigned! Drag enemy prefabs into the Enemy Prefabs array.");
+                return;
+            }
 
             // Pick random enemy prefab
             GameObject prefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
