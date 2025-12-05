@@ -30,6 +30,15 @@ namespace DreamingSlayer.Defender
         private Enemy currentTarget;
         private float nextFireTime;
 
+        // Bonus stats from upgrades
+        private float bonusDamage;
+        private float bonusFireRate;
+        private float bonusProjectileSpeed;
+
+        public float TotalDamage => damage + bonusDamage;
+        public float TotalFireRate => fireRate + bonusFireRate;
+        public float TotalProjectileSpeed => projectileSpeed + bonusProjectileSpeed;
+        
         public float Damage => damage;
         public float FireRate => fireRate;
         public float Range => targetingRange;
@@ -160,7 +169,7 @@ namespace DreamingSlayer.Defender
             if (projectilePrefab == null) return;
 
             Shoot();
-            nextFireTime = Time.time + (1f / fireRate);
+            nextFireTime = Time.time + (1f / TotalFireRate);
         }
 
         private void Shoot()
@@ -173,11 +182,27 @@ namespace DreamingSlayer.Defender
             Projectile projectile = projectileObj.GetComponent<Projectile>();
             if (projectile != null)
             {
-                projectile.Initialize(direction, projectileSpeed, damage);
+                projectile.Initialize(direction, TotalProjectileSpeed, TotalDamage);
             }
         }
 
-        // Upgrade methods
+        // Upgrade bonus setters (called by UpgradeManager)
+        public void SetBonusDamage(float bonus)
+        {
+            bonusDamage = bonus;
+        }
+
+        public void SetBonusFireRate(float bonus)
+        {
+            bonusFireRate = bonus;
+        }
+
+        public void SetBonusProjectileSpeed(float bonus)
+        {
+            bonusProjectileSpeed = bonus;
+        }
+
+        // Legacy upgrade methods (direct add)
         public void UpgradeDamage(float amount)
         {
             damage += amount;
@@ -213,4 +238,5 @@ namespace DreamingSlayer.Defender
         }
     }
 }
+
 

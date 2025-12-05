@@ -42,15 +42,19 @@ namespace DreamingSlayer.Economy
         {
             if (amount <= 0) return;
             
-            currentGold += amount;
+            // Apply gold multiplier from upgrades
+            float multiplier = UpgradeManager.Instance != null ? UpgradeManager.Instance.GoldMultiplier : 1f;
+            int finalAmount = Mathf.RoundToInt(amount * multiplier);
+            
+            currentGold += finalAmount;
             OnGoldChanged?.Invoke(currentGold);
             
             if (worldPosition.HasValue)
             {
-                OnGoldCollected?.Invoke(amount, worldPosition.Value);
+                OnGoldCollected?.Invoke(finalAmount, worldPosition.Value);
             }
             
-            Debug.Log($"Gold collected: +{amount}. Total: {currentGold}");
+            Debug.Log($"Gold collected: +{finalAmount} (base: {amount}, mult: {multiplier:F2}x). Total: {currentGold}");
         }
 
         public bool TrySpendGold(int amount)
