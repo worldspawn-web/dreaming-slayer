@@ -139,13 +139,26 @@ namespace DreamingSlayer.Enemies
         private void OnTriggerEnter2D(Collider2D other)
         {
             // Check if we reached the defender
-            if (other.GetComponent<DreamingSlayer.Defender.Defender>() != null)
+            var defender = other.GetComponent<DreamingSlayer.Defender.Defender>();
+            if (defender != null)
             {
-                // Deal damage to defender (could implement defender health later)
-                Debug.Log($"Enemy reached defender! Would deal {damageToDefender} damage.");
+                // Deal damage to defender
+                var defenderHealth = other.GetComponent<DreamingSlayer.Defender.DefenderHealth>();
+                if (defenderHealth != null)
+                {
+                    defenderHealth.TakeDamage(damageToDefender);
+                }
                 
-                // For now, just destroy self
-                Die();
+                // Destroy self (don't give gold for reaching defender)
+                isDead = true;
+                
+                // Still notify game manager
+                if (GameManager.Instance != null)
+                {
+                    GameManager.Instance.RegisterEnemyKilled();
+                }
+                
+                Destroy(gameObject);
             }
         }
 
